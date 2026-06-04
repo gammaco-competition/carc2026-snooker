@@ -1,0 +1,780 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=1920, initial-scale=1.0">
+    <title>CARC2026 - Advance Snooker</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary-color: #0f172a;
+            --secondary-color: #2563eb;
+            --bg-color: #f1f5f9;
+            --card-bg: #ffffff;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --border-color: #cbd5e1;
+            
+            /* Group Dynamic Identity Colors - ธีมงานแมตช์หุ่นยนต์ */
+            --group-a-color: #2a61a8; 
+            --group-b-color: #163fc7; 
+            --thead-bg-gray: #9da5bf;
+            
+            /* สีพื้นหลัง Footer อ้างอิงตามเฉดน้ำเงินม่วงเข้มมิดไนท์ของเวทีจริง */
+            --footer-bg-color: #1d45c4;
+            --footer-border-color: #271c52;
+        }
+
+        body {
+            font-family: 'Prompt', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            margin: 0;
+            padding: 0;
+            min-height: 1080px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            overflow-x: auto;
+        }
+
+        /* Fix Layout Container @ 1920x1080 px */
+        .pc-container {
+            width: 1920px;
+            min-width: 1920px;
+            max-width: 1920px;
+            min-height: 1080px;
+            background-color: var(--card-bg);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            padding-top: 35px; /* เพิ่มพื้นที่ระยะเผื่อจากขอบบนให้แบนเนอร์ดูมีมิติ */
+        }
+
+        /* [UPDATED] ปรับแต่งขนาด Banner และคำนวณ Margin จัดวางให้อยู่กึ่งกลางหน้าจอพอดี */
+        .banner-container {
+            width: 1800px;
+            height: 250px;
+            overflow: hidden;
+            border-radius: 14px; /* เพิ่มความโค้งมนเล็กน้อยให้เข้ากับดีไซน์กล่องควบคุมด้านล่าง */
+            border-bottom: 5px solid var(--secondary-color);
+            background-color: var(--footer-bg-color);
+            margin: 0 auto 15px auto; /* จัดกึ่งกลางซ้ายขวา และเว้นระยะห่างจากกล่องควบคุมด้านล่าง */
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .banner-img {
+            width: 100%;
+            height: 100%;
+            display: block;
+            object-fit: cover; /* ล็อกสัดส่วนรูปภาพไม่ให้บี้หรือเบี้ยวเมื่อขยายความสูงเป็น 250px */
+        }
+
+        /* Content Context Layout */
+        .main-content {
+            flex: 1;
+            padding: 20px 60px 45px 60px; /* ขยับ padding บนลงเล็กน้อยเพื่อให้เลย์เอาต์สมมาตร */
+        }
+
+        /* Modern Dashboard Control Strip */
+        .control-card {
+            background: linear-gradient(135deg, #2a61a8 0%, #163fc7 100%); /* ไล่เฉดสีน้ำเงินไปม่วงตามธีมเวที */
+            border-radius: 16px;
+            padding: 24px 35px;
+            border: none; /* ถอดเส้นขอบเดิมออกเพื่อความเนียนตา */
+            box-shadow: 0 10px 25px -5px rgba(25, 18, 53, 0.3); /* เพิ่มเงาฟุ้งโทนม่วงเข้มให้กล่องดูมีมิติลอยขึ้นมา */
+            margin-bottom: 35px;
+        }
+
+        .control-card .section-title {
+    color: #ffffff !important;
+}
+.control-card .section-title i {
+    color: #fef08a !important; /* ปรับไอคอนถ้วยรางวัล/ผู้ใช้ ให้เป็นสีทองสว่าง */
+}
+
+/* ปรับแต่งกรอบสถานะการอัปเดตให้อ่านง่ายขึ้นบนพื้นหลังสีเข้ม */
+.control-card .status-indicator {
+    background: rgba(255, 255, 255, 0.15); /* ปรับพื้นหลังให้โปร่งแสงขาว */
+    color: #ffffff !important;
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    backdrop-filter: blur(4px); /* เพิ่มเอฟเฟกต์กระจกฝ้าสไตล์โมเดิร์น */
+}
+
+        /* .section-title {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin: 0;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        } */
+
+        .custom-select {
+            font-family: 'Prompt', sans-serif;
+            font-weight: 600;
+            border: 2px solid rgba(255, 255, 255, 0.7); /* เปลี่ยนเส้นขอบเป็นสีขาวโปร่งแสง */
+            border-radius: 12px;
+            padding: 12px 20px;
+            font-size: 18px;
+            color: #1e293b; /* รักษาตัวหนังสือข้างในเป็นสีเข้ม */
+            background-color: #fff;
+            cursor: pointer;
+            width: 320px;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .custom-select:focus {
+            border-color: #ffffff;
+            box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.4);
+            outline: none;
+        }
+
+        .status-indicator {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 15px;
+            color: var(--text-muted);
+            background: #f8fafc;
+            padding: 10px 20px;
+            border-radius: 30px;
+            font-weight: 500;
+            border: 1px solid #e2e8f0;
+        }
+
+        .pulse-dot {
+            width: 10px;
+            height: 10px;
+            background-color: #10b981;
+            border-radius: 50%;
+            animation: pulse 1.8s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(0.9); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
+            70% { transform: scale(1); box-shadow: 0 0 0 8px rgba(16, 185, 129, 0); }
+            100% { transform: scale(0.9); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+        }
+
+        /* Advanced Grid Splitter Systems */
+        .grid-split-view {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+        }
+
+        /* Modern Table Custom CSS Framework */
+        .table-responsive-custom {
+            background: #ffffff;
+            border-radius: 18px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+
+        /* กรอบมอนิเตอร์ตารางคะแนนปิดสกรอลบาร์ */
+        .autoscore-container {
+            max-height: 750px; /* ปรับลดลงเล็กน้อยเพื่อให้สอดรับกับความสูงแบนเนอร์ที่เพิ่มขึ้นเป็น 250px ได้พอดีหน้าจอ */
+            overflow-y: hidden; 
+            position: relative;
+        }
+
+        .table-custom {
+            margin-bottom: 0;
+            width: 100%;
+            border-collapse: separate;
+        }
+
+        /* Banner headers inside tables */
+        .table-custom tr.group-header-row th {
+            color: #ffffff;
+            font-size: 22px;
+            font-weight: 700;
+            text-align: center;
+            padding: 15px;
+            letter-spacing: 1.5px;
+            border: none;
+        }
+
+        .bg-group-a { background-color: var(--group-a-color) !important; }
+        .bg-group-b { background-color: var(--group-b-color) !important; }
+
+        /* ตรึงหัวตาราง Thead ไว้นิ่งสนิท และให้อยู่เหนือเลเยอร์ tbody เสมอ */
+        .table-custom thead {
+            position: sticky;
+            top: 0;
+            z-index: 30;
+        }
+
+        .table-custom tr.field-label-row th {
+            background-color: var(--thead-bg-gray) !important;
+            color: #0f172a !important;
+            font-weight: 700 !important;
+            font-size: 20px !important; 
+            padding: 18px 15px;
+            border-bottom: 2px solid #cbd5e1;
+            text-transform: uppercase;
+            text-align: center !important; 
+        }
+
+        /* จัดพิกัดเลเยอร์ของบอดี้ตารางให้รองรับการเลื่อนไถลผ่าน CSS */
+        .table-custom tbody {
+            position: relative;
+            z-index: 10;
+        }
+
+        .table-custom tbody td {
+            padding: 18px 18px;
+            font-size: 18px; 
+            font-weight: 500; 
+            color: #1e293b;
+            border-bottom: 1px solid #e2e8f0;
+            vertical-align: middle;
+        }
+
+        .table-custom tbody tr:nth-of-type(even) {
+            background-color: #f8fafc;
+        }
+
+        .table-custom tbody tr:hover {
+            background-color: #f1f5f9;
+        }
+
+        /* คลาสสเตทสำหรับดันตารางทีมไปซ่อนไว้ใต้หัวข้อ Thead ด้านบนสุด */
+        .tbody-initial-hidden {
+            transform: translateY(-100%);
+            opacity: 0;
+        }
+
+        /* แอนิเมชันสไลด์นุ่มนวล Slow Motion 20 วินาทีในรอบแรกสุด */
+        .tbody-initial-slide-down {
+            transform: translateY(0);
+            opacity: 1;
+            transition: transform 20s linear, opacity 0.3s ease; 
+        }
+
+        /* ล็อกเปอร์เซ็นต์ขนาดความกว้างคอลัมน์ลีดเดอร์บอร์ด */
+        .col-w-10 { width: 10% !important; }
+        .col-w-20 { width: 20% !important; }
+
+        .rank-badge {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            font-weight: 700;
+            font-size: 15px;
+        }
+        .rank-1 { background-color: #fef08a; color: #a16207; border: 1px solid #fde047; }
+        .rank-2 { background-color: #e2e8f0; color: #475569; border: 1px solid #cbd5e1; }
+        .rank-3 { background-color: #ffedd5; color: #c2410c; border: 1px solid #fed7aa; }
+
+        .loading-container {
+            padding: 60px;
+            text-align: center;
+            display: none;
+        }
+
+        /* Footer ประจำตรรกะแมตช์สีภาพพื้นหลังเวที */
+        footer {
+            background-color: var(--footer-bg-color);
+            color: #cbd5e1;
+            height: 70px;
+            margin-top: auto;
+            border-top: 2px solid var(--footer-border-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            padding: 0 60px;
+        }
+
+        .footer-text {
+            font-size: 16px;
+            font-weight: 500;
+            letter-spacing: 0.8px;
+            text-align: center;
+            color: #ffffff;
+        }
+
+        /* ตัวลอยแจ้งสถาปัตยกรรมเวอร์ชันแอปพลิเคชัน */
+        .web-architecture-version {
+            position: absolute;
+            right: 60px;
+            bottom: 85px;
+            font-size: 13px;
+            background: #e2e8f0;
+            padding: 6px 14px;
+            border-radius: 6px;
+            color: #475569;
+            font-family: monospace;
+            border: 1px solid #cbd5e1;
+            font-weight: 600;
+            z-index: 10;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="pc-container">
+        <!-- <div class="banner-container">
+            <img src="https://drive.google.com/thumbnail?id=1Wpkqlj322JSNv2zYo36qjlJRcfWHkbCp&sz=w1920" alt="CARC2026 Banner" class="banner-img">
+        </div> -->
+
+        <div class="main-content">
+            
+            <div class="control-card d-flex justify-content-between align-items-center">
+                <div>
+                    <h2 class="section-title" id="display-title">
+                        <i class="fa-solid fa-users"></i> Team Group
+                    </h2>
+                </div>
+                
+                <div class="d-flex align-items-center gap-4">
+                    <div class="status-indicator">
+                        <div class="pulse-dot"></div>
+                        <span id="refresh-status">อัปเดตทุก 5 นาที</span>
+                    </div>
+                    
+                    <div>
+                        <select class="form-select custom-select" id="sheet-selector" onchange="handleSheetChange()">
+                            <option value="Group" selected>Group</option>
+                            <option value="Round 1">Round 1</option>
+                            <option value="Round 2">Round 2</option>
+                            <option value="Scoreboard">Scoreboard</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div id="loading-spinner" class="loading-container">
+                <div class="spinner-border text-primary" style="width: 3.5rem; height: 3.5rem;" role="status">
+                    <span class="visually-hidden">Processing...</span>
+                </div>
+                <p class="mt-3 text-muted fw-medium fs-5">Please wait...</p>
+            </div>
+
+            <div id="dynamic-view-wrapper">
+                </div>
+
+        </div>
+
+        <div class="web-architecture-version">
+            Web Architecture: v1.2.0 (Centered Banner & GitHub Ready)
+        </div>
+
+        <footer>
+            <div class="footer-text">
+                <i class="fa-solid fa-robot me-2 text-primary"></i> Creating and Controlling Automatic Robot Competition 2026
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        const sheetConfigs = {
+            'Group': { title: 'Team Group : Advance Snooker', icon: 'fa-users' },
+            'Round 1': { title: 'Schedule Round 1 : Advance Snooker', icon: 'fa-calendar-days' },
+            'Round 2': { title: 'Schedule Round 2 : Advance Snooker', icon: 'fa-calendar-check' },
+            'Scoreboard': { title: 'Leaderboard : Advance Snooker', icon: 'fa-trophy' }
+        };
+
+        let autoScrollInterval = null;
+        let isFirstLoadOnScoreboard = true; 
+
+        function handleSheetChange() {
+            if (autoScrollInterval) {
+                clearInterval(autoScrollInterval);
+                autoScrollInterval = null;
+            }
+
+            const select = document.getElementById('sheet-selector');
+            const selectedValue = select.value;
+            
+            if (selectedValue !== 'Scoreboard') {
+                isFirstLoadOnScoreboard = true;
+            }
+
+            const config = sheetConfigs[selectedValue];
+            document.getElementById('display-title').innerHTML = `<i class="fa-solid ${config.icon}"></i> ${config.title}`;
+            
+            fetchDataEngine(selectedValue);
+        }
+
+        function fetchDataEngine(sheetName) {
+    showLoader(true);
+    
+    // ⚠️ นำลิงก์ Web App URL (ที่ลงท้ายด้วย /exec) ที่ได้จาก Google Apps Script มาวางแทนที่เครื่องหมายคำพูดด้านล่างนี้ครับ
+    const APPS_SCRIPT_WEBAPP_URL = "https://script.google.com/macros/s/AKfycbxYBZzb3g8nZ6X_kyEDflpvr264ECn0QoRXaGIlXT1PRXBRqaaAkABEO6lNB37CJ0JYxg/exec";
+    
+    // ระบบตรวจจับอัจฉริยะ: หากรันอยู่บนระบบ Google Web App ตรงๆ จะใช้ google.script.run ตามเดิม
+    if (typeof google !== 'undefined' && google.script && google.script.run) {
+        google.script.run
+            .withSuccessHandler(function(response) {
+                buildResponsiveTable(sheetName, response);
+                showLoader(false);
+            })
+            .withFailureHandler(function(err) {
+                console.error("Backend integration runtime failure:", err);
+                showLoader(false);
+            })
+            .getSheetData(sheetName);
+    } 
+    // 🚀 หากรันบน GitHub Pages ระบบจะเปลี่ยนมาใช้ Fetch API ยิงข้อมูลสดๆ ข้ามระบบจาก Google Sheets ทันที
+    else {
+        fetch(`${APPS_SCRIPT_WEBAPP_URL}?sheet=${encodeURIComponent(sheetName)}`)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error("Network response was not ok");
+                }
+                return response.json();
+            })
+            .then(response => {
+                // ตรวจสอบโครงสร้างข้อมูล หาก Backend ส่ง Error กลับมา ให้สลับไปใช้ Mock Data
+                if (response && response.error) {
+                    console.error("Backend Apps Script Error:", response.error);
+                    fallbackToMockData(sheetName);
+                    return;
+                }
+                buildResponsiveTable(sheetName, response);
+                showLoader(false);
+            })
+            .catch(err => {
+                console.error("GitHub Cross-Origin Fetch Error (สลับไปใช้ Mock Data อัตโนมัติ):", err);
+                fallbackToMockData(sheetName);
+            });
+    }
+}
+
+// ฟังก์ชันเสริมสำหรับดึงข้อมูลสำรอง ในกรณีที่เซิร์ฟเวอร์หลักหรืออินเทอร์เน็ตหน้างานมีปัญหา บอร์ดคะแนนจะไม่ค้างจอดำ
+function fallbackToMockData(sheetName) {
+    const mockPayload = fetchLocalMockDataset(sheetName);
+    buildResponsiveTable(sheetName, mockPayload);
+    showLoader(false);
+}
+
+        function sliceColumns(row, startCol, count) {
+            if (!row) return [];
+            return row.slice(startCol, startCol + count);
+        }
+
+        function buildResponsiveTable(sheetName, data) {
+            const wrapper = document.getElementById('dynamic-view-wrapper');
+            wrapper.innerHTML = '';
+
+            if (!data || data.length === 0) {
+                wrapper.innerHTML = `<div class="alert alert-light text-center py-5 border border-dashed text-muted fs-5">ไม่พบข้อมูลที่จะแสดงผลในขณะนี้</div>`;
+                return;
+            }
+
+            // ------------------ กรณีหน้า SCOREBOARD ------------------
+            if (sheetName === 'Scoreboard') {
+                let headers = [...data[0]];
+                const medalIndex = headers.findIndex(h => h.toLowerCase().includes('medal'));
+
+                let tableHtml = `
+                    <div class="table-responsive-custom autoscore-container" id="scoreboard-scroll-box">
+                        <table class="table table-custom">
+                            <thead>
+                                <tr class="field-label-row">`;
+                
+                headers.forEach((headerText, i) => {
+                    let colClass = '';
+                    let textClean = headerText.trim().toLowerCase();
+
+                    if (i === 0 || textClean.includes('id') || textClean.includes('round') || textClean.includes('score') || textClean.includes('medal')) {
+                        colClass = 'class="col-w-10"';
+                    } else {
+                        colClass = 'class="col-w-20"';
+                    }
+                    
+                    let displayText = headerText;
+                    if (i === medalIndex && headerText.includes('(')) {
+                        displayText = headerText.replace('(', '<br>(');
+                    }
+                    
+                    tableHtml += `<th ${colClass}>${displayText}</th>`;
+                });
+                
+                let initialTbodyClass = isFirstLoadOnScoreboard ? 'class="tbody-initial-hidden"' : '';
+                tableHtml += `</tr></thead><tbody id="scoreboard-tbody-target" ${initialTbodyClass}>`;
+
+                for (let r = 1; r < data.length; r++) {
+                    tableHtml += `<tr>`;
+                    data[r].forEach((cell, c) => {
+                        if (c === 0 && !isNaN(cell) && cell !== '') {
+                            const rank = parseInt(cell);
+                            tableHtml += `<td class="text-center">${rank <= 3 ? `<span class="rank-badge rank-${rank}">${rank}</span>` : rank}</td>`;
+                        } else if (c === medalIndex || c === 1 || headers[c].toLowerCase().includes('round') || headers[c].toLowerCase().includes('score')) {
+                            tableHtml += `<td class="text-center">${cell !== null ? cell : ''}</td>`;
+                        } else {
+                            tableHtml += `<td>${cell !== null ? cell : ''}</td>`;
+                        }
+                    });
+                    tableHtml += `</tr>`;
+                }
+                
+                tableHtml += `</tbody></table></div>`;
+                wrapper.innerHTML = tableHtml;
+
+                setTimeout(() => {
+                    initUnderTheadSlowSlideEngine();
+                }, 50);
+
+            // ------------------ กรณีหน้า GROUP, ROUND 1, ROUND 2 ------------------
+            } else {
+                let colConfig = { aStart: 0, aCount: 3, bStart: 4, bCount: 3 }; 
+
+                if (sheetName === 'Round 1' || sheetName === 'Round 2') {
+                    colConfig = { aStart: 0, aCount: 4, bStart: 5, bCount: 4 }; 
+                }
+
+                let fieldsA = [];
+                let fieldsB = [];
+                let startRowIndex = 2; 
+
+                if (data.length > 1) {
+                    fieldsA = sliceColumns(data[1], colConfig.aStart, colConfig.aCount);
+                    fieldsB = sliceColumns(data[1], colConfig.bStart, colConfig.bCount);
+                } else {
+                    fieldsA = sliceColumns(data[0], colConfig.aStart, colConfig.aCount);
+                    fieldsB = sliceColumns(data[0], colConfig.bStart, colConfig.bCount);
+                    startRowIndex = 1;
+                }
+
+                let groupA_Rows = [];
+                let groupB_Rows = [];
+
+                for (let r = startRowIndex; r < data.length; r++) {
+                    let rowDataA = sliceColumns(data[r], colConfig.aStart, colConfig.aCount);
+                    let rowDataB = sliceColumns(data[r], colConfig.bStart, colConfig.bCount);
+
+                    if (rowDataA.some(cell => cell !== '' && cell !== null)) {
+                        groupA_Rows.push(rowDataA);
+                    }
+                    if (rowDataB.some(cell => cell !== '' && cell !== null)) {
+                        groupB_Rows.push(rowDataB);
+                    }
+                }
+
+                let gridHtml = `<div class="grid-split-view">`;
+
+                // ------------------ RENDER ตารางย่อยฝั่ง GROUP A ------------------
+                gridHtml += `
+                    <div class="table-responsive-custom">
+                        <table class="table table-custom">
+                            <thead>
+                                <tr class="group-header-row"><th colspan="${fieldsA.length}" class="bg-group-a">GROUP A</th></tr>
+                                <tr class="field-label-row">`;
+                fieldsA.forEach(f => gridHtml += `<th>${f}</th>`);
+                gridHtml += `</tr></thead><tbody>`;
+                
+                if(groupA_Rows.length === 0) {
+                    gridHtml += `<tr><td colspan="${fieldsA.length}" class="text-center py-4 text-muted">ไม่มีข้อมูลกลุ่ม A</td></tr>`;
+                } else {
+                    groupA_Rows.forEach(row => {
+                        gridHtml += `<tr>`;
+                        row.forEach((cell, idx) => {
+                            let centerClass = (idx === 0 || idx === 1) ? 'class="text-center"' : '';
+                            gridHtml += `<td ${centerClass}>${cell !== null ? cell : ''}</td>`;
+                        });
+                        gridHtml += `</tr>`;
+                    });
+                }
+                gridHtml += `</tbody></table></div>`;
+
+                // ------------------ RENDER ตารางย่อยฝั่ง GROUP B ------------------
+                gridHtml += `
+                    <div class="table-responsive-custom">
+                        <table class="table table-custom">
+                            <thead>
+                                <tr class="group-header-row"><th colspan="${fieldsB.length}" class="bg-group-b">GROUP B</th></tr>
+                                <tr class="field-label-row">`;
+                fieldsB.forEach(f => gridHtml += `<th>${f}</th>`);
+                gridHtml += `</tr></thead><tbody>`;
+                
+                if(groupB_Rows.length === 0) {
+                    gridHtml += `<tr><td colspan="${fieldsB.length}" class="text-center py-4 text-muted">ไม่มีข้อมูลกลุ่ม B</td></tr>`;
+                } else {
+                    groupB_Rows.forEach(row => {
+                        gridHtml += `<tr>`;
+                        row.forEach((cell, idx) => {
+                            let centerClass = (idx === 0 || idx === 1) ? 'class="text-center"' : '';
+                            gridHtml += `<td ${centerClass}>${cell !== null ? cell : ''}</td>`;
+                        });
+                        gridHtml += `</tr>`;
+                    });
+                }
+                gridHtml += `</tbody></table></div></div>`;
+
+                wrapper.innerHTML = gridHtml;
+            }
+        }
+
+        // กลไกควบคุมแอนิเมชันลูปหน่วงเวลาฝั่งละ 10 วินาทีในโหมดความช้าโมเดิร์น
+        function initUnderTheadSlowSlideEngine() {
+            const scrollBox = document.getElementById('scoreboard-scroll-box');
+            const tbodyTarget = document.getElementById('scoreboard-tbody-target');
+            if (!scrollBox || !tbodyTarget) return;
+
+            let currentMode = "";
+            let delayCounter = 0;
+            const scrollSpeed = 1; 
+
+            if (isFirstLoadOnScoreboard) {
+                currentMode = "FIRST_LOAD_WAIT"; 
+                scrollBox.scrollTop = 0;
+            } else {
+                currentMode = "LOOP_START_HOLD"; 
+                tbodyTarget.className = ""; 
+                const maxScrollInit = scrollBox.scrollHeight - scrollBox.clientHeight;
+                scrollBox.scrollTop = maxScrollInit;
+            }
+
+            autoScrollInterval = setInterval(() => {
+                const maxScrollDynamic = scrollBox.scrollHeight - scrollBox.clientHeight;
+
+                // 1. โหมด FIRST_LOAD_WAIT: ค้างแสดงพื้นที่ว่างใต้ Thead นิ่ง ๆ 10 วินาทีแรก
+                if (currentMode === "FIRST_LOAD_WAIT") {
+                    scrollBox.scrollTop = 0;
+                    delayCounter++;
+                    if (delayCounter >= 285) { // 285 รอบ * 35ms ≈ 10 วินาที
+                        tbodyTarget.className = "tbody-initial-slide-down"; // สั่งสไลด์ลงมาอย่างเช้านุ่มนวลพรีเมียม 20s
+                        currentMode = "FIRST_LOAD_SLIDING"; 
+                        delayCounter = 0;
+                    }
+                }
+                
+                // 2. โหมด FIRST_LOAD_SLIDING: รอรับขบวนแถวข้อมูลให้ CSS เลื่อนไหลลงมาจนชนขอบล่างสุดเสร็จสมบูรณ์
+                else if (currentMode === "FIRST_LOAD_SLIDING") {
+                    delayCounter++;
+                    if (delayCounter >= 570) { // 570 รอบ * 35ms = 20 วินาทีตรงตามกฎ CSS
+                        tbodyTarget.className = ""; 
+                        scrollBox.scrollTop = 0; 
+                        currentMode = "TOP_HOLD"; 
+                        delayCounter = 0;
+                    }
+                }
+
+                // 3. โหมด LOOP_START_HOLD: สแตนด์บายแสดงผลทีมอันดับสุดท้าย (อันดับ 12) ค้างนิ่งไว้เลย 10 วินาทีในลูปรอบถัดไป
+                else if (currentMode === "LOOP_START_HOLD") {
+                    if (maxScrollDynamic > 0) {
+                        scrollBox.scrollTop = maxScrollDynamic; 
+                    }
+                    delayCounter++;
+                    if (delayCounter >= 285) { 
+                        currentMode = "SCROLLING_UP"; 
+                        delayCounter = 0;
+                    }
+                }
+                
+                // 4. โหมด SCROLLING_UP: ใช้แอนิเมชันสคริปต์ค่อย ๆ สกรอลล์ไหลบอร์ดขึ้นบนอย่างละมุนสายตาเพื่อกวาดอ่านคะแนน
+                else if (currentMode === "SCROLLING_UP") {
+                    if (scrollBox.scrollTop > 0) {
+                        scrollBox.scrollTop -= scrollSpeed; 
+                    } else {
+                        currentMode = "TOP_HOLD"; 
+                        delayCounter = 0;
+                    }
+                }
+                
+                // 5. โหมด TOP_HOLD: ล็อกหน้าจอทำเนียบแชมป์อันดับ 1-3 ทิ้งไว้ 10 วินาทีเต็มให้ผู้ชมดูผลสรุปคะแนน
+                else if (currentMode === "TOP_HOLD") {
+                    delayCounter++;
+                    if (delayCounter >= 285) { 
+                        isFirstLoadOnScoreboard = false; 
+                        
+                        const maxScrollReset = scrollBox.scrollHeight - scrollBox.clientHeight;
+                        scrollBox.scrollTop = maxScrollReset;
+                        
+                        currentMode = "LOOP_START_HOLD"; 
+                        delayCounter = 0;
+                    }
+                }
+            }, 35); // ลูปหน่วงเวลาประสิทธิภาพสูง 35ms
+        }
+
+        function showLoader(isActive) {
+            const spinner = document.getElementById('loading-spinner');
+            const wrapper = document.getElementById('dynamic-view-wrapper');
+            if (isActive) {
+                spinner.style.display = 'block';
+                wrapper.style.display = 'none';
+            } else {
+                spinner.style.display = 'none';
+                wrapper.style.display = 'block';
+            }
+        }
+
+        function fetchLocalMockDataset(sheetName) {
+            switch(sheetName) {
+                case 'Group':
+                    return [
+                        ['หัวผสานเซลล์แถวที่ 1', '', ''], 
+                        ['No', 'Team ID', 'Team Name', '', 'No', 'Team ID', 'Team Name'], 
+                        ['1', 'CAM-1', 'Sp spicy', '', '1', 'CAM-12', 'YBR-PPM'],
+                        ['2', 'CAM-2', 'ข้าวเหนียวหมูทิ้ง 2.0', '', '2', 'CAM-13', 'YBR-TPG'],
+                        ['3', 'CAM-3', 'WINNER', '', '3', 'CAM-14', 'TP_Border Boy'],
+                        ['4', 'CAM-6', 'Kmids no.1', '', '4', 'CAM-15', 'AranBot01'],
+                        ['5', 'CAM-7', 'PSK ROBOTICS', '', '5', 'CAM-16', 'AranBot02'],
+                        ['6', 'CAM-8', 'YBR-CK', '', '6', 'CAM-17', 'SC-Auto'],
+                        ['7', 'CAM-9', 'YBR-MS', '', '7', 'CAM-18', 'CBO'],
+                        ['8', 'CAM-10', 'YBR-TK', '', '8', 'CAM-19', 'JOT']
+                    ];
+                case 'Round 1':
+                    return [
+                        ['หัวแถวผสาน 1', '', '', '', '', '', '', '', ''],
+                        ['Match', 'Time', 'Arena', 'Contestant A', '', 'Match', 'Time', 'Arena', 'Contestant B'], 
+                        ['M1-01', '09:00', 'Track A', 'Sp spicy VS WINNER', '', 'M1-03', '09:40', 'Track B', 'YBR-PPM VS TP_Border'],
+                        ['M1-02', '09:20', 'Track A', 'Kmids VS PSK', '', 'M1-04', '10:00', 'Track B', 'AranBot01 VS SC-Auto']
+                    ];
+                case 'Round 2':
+                    return [
+                        ['หัวแถวผสาน 1', '', '', '', '', '', '', '', ''],
+                        ['Match', 'Time', 'Track Zone', 'Playoff Line A', '', 'Match', 'Time', 'Track Zone', 'Playoff Line B'],
+                        ['M2-01', '13:10', 'Main Stadium', 'Top 1A VS Top 2A', '', 'M2-02', '13:40', 'Main Stadium', 'Top 1B VS Top 2B']
+                    ];
+                case 'Scoreboard':
+                    return [
+                        ['Rank', 'Team ID', 'Team Name', 'Institution', 'Round 1', 'Round 2', 'Total Score', 'Medal (Certificate)'],
+                        ['1', 'CAM-03', 'WINNER TEAM', 'Bangkok Innovation Tech High School', '295', '300', '595', 'Gold Medal'],
+                        ['2', 'CAM-01', 'Sp spicy', 'KMIDS Demonstration Academy', '290', '260', '550', 'Silver Medal'],
+                        ['3', 'CAM-12', 'YBR-PPM Team', 'Yala Robotics Provincial Club', '250', '270', '520', 'Bronze Medal'],
+                        ['4', 'CAM-06', 'Kmids no.1', 'KMIDS Demonstration Academy', '210', '240', '450', 'Excellent Cert'],
+                        ['5', 'CAM-02', 'ข้าวเหนียวหมูทิ้ง', 'Siam Automations Engineering School', '220', '200', '420', 'Excellent Cert'],
+                        ['6', 'CAM-15', 'AranBot01', 'Aranyaprathet Science Academy', '190', '210', '400', 'Excellent Cert'],
+                        ['7', 'CAM-07', 'PSK ROBOTICS', 'Phitsanulok Smart Robotics Union', '180', '200', '380', 'Excellent Cert'],
+                        ['8', 'CAM-17', 'SC-Automations', 'Saraburi Complex Robot Center', '150', '210', '360', 'Participation'],
+                        ['9', 'CAM-14', 'TP_Border Boy', 'Takpittayakhom School Industry', '170', '160', '330', 'Participation'],
+                        ['10', 'CAM-08', 'YBR-CK Senior', 'Chonburi Kanjanapisek High School', '140', '180', '320', 'Participation'],
+                        ['11', 'CAM-19', 'JOT Matrix', 'Jothinnukul Robotic Laboratory', '150', '150', '300', 'Participation'],
+                        ['12', 'CAM-10', 'YBR-TK Fighter', 'Thonburi Kangkrai Technology', '110', '140', '250', 'Participation']
+                    ];
+                default:
+                    return [];
+            }
+        }
+
+        setInterval(() => {
+            const currentSelection = document.getElementById('sheet-selector').value;
+            fetchDataEngine(currentSelection);
+        }, 5 * 60 * 1000);
+
+        document.addEventListener("DOMContentLoaded", () => {
+            handleSheetChange();
+        });
+    </script>
+</body>
+</html>
