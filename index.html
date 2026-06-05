@@ -172,30 +172,31 @@
             gap: 40px;
         }
 
-        /* Modern Table Custom CSS Framework */
-        .table-responsive-custom {
-            background: #ffffff;
-            border-radius: 18px;
-            border: 1px solid var(--border-color);
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
-            overflow: hidden;
-            margin-bottom: 20px;
-            max-height: 900px;
-        }
+        /* Modern Table Custom CSS Framework */https://github.com/gammaco-competition/carc2026-snooker/actions
+.table-responsive-custom {
+    background: #ffffff;
+    border-radius: 18px;
+    border: 1px solid var(--border-color);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
+    overflow: hidden;
+    margin-bottom: 20px;
+    max-height: 880px !important; /* 👈 เพิ่ม !important เพื่อบังคับทับค่าเดิม */
+}
 
-        /* กรอบมอนิเตอร์ตารางคะแนนปิดสกรอลบาร์ */
-        .autoscore-container {
-            max-height: 900px; /* ปรับลดลงเล็กน้อยเพื่อให้สอดรับกับความสูงแบนเนอร์ที่เพิ่มขึ้นเป็น 250px ได้พอดีหน้าจอ */
-            overflow-y: hidden; 
-            position: relative;
-        }
+/* กรอบมอนิเตอร์ตารางคะแนนปิดสกรอลบาร์ */
+.autoscore-container {
+    max-height: 880px !important; /* 👈 เพิ่ม !important */
+    height: 880px !important;     /* 👈 เพิ่มบรรทัดนี้ เพื่อป้องกันกรณี JavaScript บังคับด้วย height */
+    overflow-y: hidden; 
+    position: relative;
+}
 
-        .table-custom {
-            margin-bottom: 0;
-            width: 100%;
-            max-height: 900px;
-            border-collapse: separate;
-        }
+.table-custom {
+    margin-bottom: 0;
+    width: 100%;
+    max-height: 880px !important; /* 👈 เพิ่ม !important */
+    border-collapse: separate;
+}
 
         /* Banner headers inside tables */
         .table-custom tr.group-header-row th {
