@@ -628,6 +628,7 @@ function fallbackToMockData(sheetName) {
         }
 
         // กลไกควบคุมแอนิเมชันลูปหน่วงเวลาฝั่งละ 10 วินาทีในโหมดความช้าโมเดิร์น
+        // [UPDATED] กลไกควบคุมแอนิเมชันความเร็วใหม่ - กระชับและไวขึ้น
         function initUnderTheadSlowSlideEngine() {
             const scrollBox = document.getElementById('scoreboard-scroll-box');
             const tbodyTarget = document.getElementById('scoreboard-tbody-target');
@@ -635,7 +636,7 @@ function fallbackToMockData(sheetName) {
 
             let currentMode = "";
             let delayCounter = 0;
-            const scrollSpeed = 1; 
+            const scrollSpeed = 2; // 🚀 เพิ่มความเร็วการสกรอลล์ขึ้นจาก 1 เป็น 2 (ไวขึ้นเท่าตัว)
 
             if (isFirstLoadOnScoreboard) {
                 currentMode = "FIRST_LOAD_WAIT"; 
@@ -650,21 +651,21 @@ function fallbackToMockData(sheetName) {
             autoScrollInterval = setInterval(() => {
                 const maxScrollDynamic = scrollBox.scrollHeight - scrollBox.clientHeight;
 
-                // 1. โหมด FIRST_LOAD_WAIT: ค้างแสดงพื้นที่ว่างใต้ Thead นิ่ง ๆ 10 วินาทีแรก
+                // 1. โหมด FIRST_LOAD_WAIT: ค้างแสดงพื้นที่ว่างใต้ Thead นิ่ง ๆ ลดเหลือ 5 วินาที
                 if (currentMode === "FIRST_LOAD_WAIT") {
                     scrollBox.scrollTop = 0;
                     delayCounter++;
-                    if (delayCounter >= 285) { // 285 รอบ * 35ms ≈ 10 วินาที
-                        tbodyTarget.className = "tbody-initial-slide-down"; // สั่งสไลด์ลงมาอย่างเช้านุ่มนวลพรีเมียม 20s
+                    if (delayCounter >= 145) { // ⏱ 145 รอบ * 35ms ≈ 5 วินาที
+                        tbodyTarget.className = "tbody-initial-slide-down"; 
                         currentMode = "FIRST_LOAD_SLIDING"; 
                         delayCounter = 0;
                     }
                 }
                 
-                // 2. โหมด FIRST_LOAD_SLIDING: รอรับขบวนแถวข้อมูลให้ CSS เลื่อนไหลลงมาจนชนขอบล่างสุดเสร็จสมบูรณ์
+                // 2. โหมด FIRST_LOAD_SLIDING: รอรับขบวนแถวข้อมูลให้ CSS เลื่อนไหลลงมา (ปรับให้สมดุลที่ 10 วินาที)
                 else if (currentMode === "FIRST_LOAD_SLIDING") {
                     delayCounter++;
-                    if (delayCounter >= 570) { // 570 รอบ * 35ms = 20 วินาทีตรงตามกฎ CSS
+                    if (delayCounter >= 285) { // ⏱ 285 รอบ * 35ms ≈ 10 วินาที
                         tbodyTarget.className = ""; 
                         scrollBox.scrollTop = 0; 
                         currentMode = "TOP_HOLD"; 
@@ -672,19 +673,19 @@ function fallbackToMockData(sheetName) {
                     }
                 }
 
-                // 3. โหมด LOOP_START_HOLD: สแตนด์บายแสดงผลทีมอันดับสุดท้าย (อันดับ 12) ค้างนิ่งไว้เลย 10 วินาทีในลูปรอบถัดไป
+                // 3. โหมด LOOP_START_HOLD: สแตนด์บายแสดงผลทีมอันดับสุดท้าย ค้างนิ่งไว้ 5 วินาที
                 else if (currentMode === "LOOP_START_HOLD") {
                     if (maxScrollDynamic > 0) {
                         scrollBox.scrollTop = maxScrollDynamic; 
                     }
                     delayCounter++;
-                    if (delayCounter >= 285) { 
+                    if (delayCounter >= 145) { // ⏱ 145 รอบ * 35ms ≈ 5 วินาที
                         currentMode = "SCROLLING_UP"; 
                         delayCounter = 0;
                     }
                 }
                 
-                // 4. โหมด SCROLLING_UP: ใช้แอนิเมชันสคริปต์ค่อย ๆ สกรอลล์ไหลบอร์ดขึ้นบนอย่างละมุนสายตาเพื่อกวาดอ่านคะแนน
+                // 4. โหมด SCROLLING_UP: ใช้แอนิเมชันสคริปต์ค่อย ๆ สกรอลล์ไหลบอร์ดขึ้นบน (ความเร็วติดสปีด x2)
                 else if (currentMode === "SCROLLING_UP") {
                     if (scrollBox.scrollTop > 0) {
                         scrollBox.scrollTop -= scrollSpeed; 
@@ -694,10 +695,10 @@ function fallbackToMockData(sheetName) {
                     }
                 }
                 
-                // 5. โหมด TOP_HOLD: ล็อกหน้าจอทำเนียบแชมป์อันดับ 1-3 ทิ้งไว้ 10 วินาทีเต็มให้ผู้ชมดูผลสรุปคะแนน
+                // 5. โหมด TOP_HOLD: ล็อกหน้าจอทำเนียบแชมป์อันดับ 1-3 ทิ้งไว้ 5 วินาที
                 else if (currentMode === "TOP_HOLD") {
                     delayCounter++;
-                    if (delayCounter >= 285) { 
+                    if (delayCounter >= 145) { // ⏱ 145 รอบ * 35ms ≈ 5 วินาที
                         isFirstLoadOnScoreboard = false; 
                         
                         const maxScrollReset = scrollBox.scrollHeight - scrollBox.clientHeight;
@@ -707,7 +708,7 @@ function fallbackToMockData(sheetName) {
                         delayCounter = 0;
                     }
                 }
-            }, 35); // ลูปหน่วงเวลาประสิทธิภาพสูง 35ms
+            }, 35); // คงลูปประสิทธิภาพสูง 35ms ไว้เพื่อความลื่นไหลของเฟรม
         }
 
         function showLoader(isActive) {
