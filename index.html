@@ -93,29 +93,19 @@
         }
 
         .control-card .section-title {
-    color: #ffffff !important;
-}
-.control-card .section-title i {
-    color: #fef08a !important; /* ปรับไอคอนถ้วยรางวัล/ผู้ใช้ ให้เป็นสีทองสว่าง */
-}
+            color: #ffffff !important;
+        }
+        .control-card .section-title i {
+            color: #fef08a !important; /* ปรับไอคอนถ้วยรางวัล/ผู้ใช้ ให้เป็นสีทองสว่าง */
+        }
 
-/* ปรับแต่งกรอบสถานะการอัปเดตให้อ่านง่ายขึ้นบนพื้นหลังสีเข้ม */
-.control-card .status-indicator {
-    background: rgba(255, 255, 255, 0.15); /* ปรับพื้นหลังให้โปร่งแสงขาว */
-    color: #ffffff !important;
-    border: 1px solid rgba(255, 255, 255, 0.25);
-    backdrop-filter: blur(4px); /* เพิ่มเอฟเฟกต์กระจกฝ้าสไตล์โมเดิร์น */
-}
-
-        /* .section-title {
-            font-size: 28px;
-            font-weight: 700;
-            color: var(--primary-color);
-            margin: 0;
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        } */
+        /* ปรับแต่งกรอบสถานะการอัปเดตให้อ่านง่ายขึ้นบนพื้นหลังสีเข้ม */
+        .control-card .status-indicator {
+            background: rgba(255, 255, 255, 0.15); /* ปรับพื้นหลังให้โปร่งแสงขาว */
+            color: #ffffff !important;
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            backdrop-filter: blur(4px); /* เพิ่มเอฟเฟกต์กระจกฝ้าสไตล์โมเดิร์น */
+        }
 
         .custom-select {
             font-family: 'Prompt', sans-serif;
@@ -172,39 +162,39 @@
             gap: 40px;
         }
 
-        /* Modern Table Custom CSS Framework */https://github.com/gammaco-competition/carc2026-snooker/actions
-.table-responsive-custom {
-    background: #ffffff;
-    border-radius: 18px;
-    border: 1px solid var(--border-color);
-    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
-    overflow: hidden;
-    margin-bottom: 20px;
-    max-height: 880px !important; /* 👈 เพิ่ม !important เพื่อบังคับทับค่าเดิม */
-}
+        /* Modern Table Custom CSS Framework */
+        .table-responsive-custom {
+            background: #ffffff;
+            border-radius: 18px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+            margin-bottom: 20px;
+            max-height: 880px !important; /* 👈 เพิ่ม !important เพื่อบังคับทับค่าเดิม */
+        }
 
-/* กรอบมอนิเตอร์ตารางคะแนนปิดสกรอลบาร์ */
-.autoscore-container {
-    max-height: 880px !important; /* 👈 เพิ่ม !important */
-    height: 880px !important;     /* 👈 เพิ่มบรรทัดนี้ เพื่อป้องกันกรณี JavaScript บังคับด้วย height */
-    overflow-y: hidden; 
-    position: relative;
-}
+        /* กรอบมอนิเตอร์ตารางคะแนนปิดสกรอลบาร์ */
+        .autoscore-container {
+            max-height: 880px !important; /* 👈 เพิ่ม !important */
+            height: 880px !important;      /* 👈 เพิ่มบรรทัดนี้ เพื่อป้องกันกรณี JavaScript บังคับด้วย height */
+            overflow-y: hidden; 
+            position: relative;
+        }
 
-.table-custom {
-    margin-bottom: 0;
-    width: 100%;
-    max-height: 880px !important; /* 👈 เพิ่ม !important */
-    border-collapse: separate;
-}
+        .table-custom {
+            margin-bottom: 0;
+            width: 100%;
+            max-height: 880px !important; /* 👈 เพิ่ม !important */
+            border-collapse: separate;
+        }
 
         /* Banner headers inside tables */
         .table-custom tr.group-header-row th {
             color: #ffffff;
-            font-size: 22px;
+            font-size: 26px; /* 👈 ขยายขนาดฟอนต์หัวกลุ่ม (Group A / B) */
             font-weight: 700;
             text-align: center;
-            padding: 15px;
+            padding: 16px;
             letter-spacing: 1.5px;
             border: none;
         }
@@ -223,8 +213,8 @@
             background-color: var(--thead-bg-gray) !important;
             color: #0f172a !important;
             font-weight: 700 !important;
-            font-size: 20px !important; 
-            padding: 18px 15px;
+            font-size: 22px !important;  /* 👈 ขยายฟอนต์หัวคอลัมน์ให้อ่านง่ายขึ้น (เดิม 20px) */
+            padding: 20px 15px; /* 👈 เพิ่ม padding ให้ดูโปร่งเต็มตากระชับฟอนต์ใหม่ */
             border-bottom: 2px solid #cbd5e1;
             text-transform: uppercase;
             text-align: center !important; 
@@ -237,8 +227,8 @@
         }
 
         .table-custom tbody td {
-            padding: 18px 18px;
-            font-size: 18px; 
+            padding: 20px 18px; /* 👈 เพิ่มความสูง Row เล็กน้อยให้รับกับขนาดฟอนต์ */
+            font-size: 21px;    /* 👈 ขยายฟอนต์เนื้อหาข้อมูลภายในตาราง (เดิม 18px) */
             font-weight: 500; 
             color: #1e293b;
             border-bottom: 1px solid #e2e8f0;
@@ -275,11 +265,11 @@
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            width: 34px;
-            height: 34px;
+            width: 42px;  /* 👈 ขยายขนาดวงกลมตัวเลขลำดับ (เดิม 34px) */
+            height: 42px; /* 👈 ขยายขนาดวงกลมตัวเลขลำดับ (เดิม 34px) */
             border-radius: 50%;
             font-weight: 700;
-            font-size: 15px;
+            font-size: 18px; /* 👈 ขยายขนาดฟอนต์ตัวเลขลำดับ (เดิม 15px) */
         }
         .rank-1 { background-color: #fef08a; color: #a16207; border: 1px solid #fde047; }
         .rank-2 { background-color: #e2e8f0; color: #475569; border: 1px solid #cbd5e1; }
@@ -334,10 +324,6 @@
 <body>
 
     <div class="pc-container">
-        <!-- <div class="banner-container">
-            <img src="https://drive.google.com/thumbnail?id=1Wpkqlj322JSNv2zYo36qjlJRcfWHkbCp&sz=w1920" alt="CARC2026 Banner" class="banner-img">
-        </div> -->
-
         <div class="main-content">
             
             <div class="control-card d-flex justify-content-between align-items-center">
@@ -372,12 +358,12 @@
             </div>
 
             <div id="dynamic-view-wrapper">
-                </div>
+            </div>
 
         </div>
 
         <div class="web-architecture-version">
-            Web Architecture: v1.2.0 (Centered Banner & GitHub Ready)
+            Web Architecture: v1.2.1 (Enhanced Font Size & Center Banner)
         </div>
 
         <footer>
@@ -418,56 +404,51 @@
         }
 
         function fetchDataEngine(sheetName) {
-    showLoader(true);
-    
-    // ⚠️ นำลิงก์ Web App URL (ที่ลงท้ายด้วย /exec) ที่ได้จาก Google Apps Script มาวางแทนที่เครื่องหมายคำพูดด้านล่างนี้ครับ
-    const APPS_SCRIPT_WEBAPP_URL = "https://script.google.com/macros/s/AKfycbxYBZzb3g8nZ6X_kyEDflpvr264ECn0QoRXaGIlXT1PRXBRqaaAkABEO6lNB37CJ0JYxg/exec";
-    
-    // ระบบตรวจจับอัจฉริยะ: หากรันอยู่บนระบบ Google Web App ตรงๆ จะใช้ google.script.run ตามเดิม
-    if (typeof google !== 'undefined' && google.script && google.script.run) {
-        google.script.run
-            .withSuccessHandler(function(response) {
-                buildResponsiveTable(sheetName, response);
-                showLoader(false);
-            })
-            .withFailureHandler(function(err) {
-                console.error("Backend integration runtime failure:", err);
-                showLoader(false);
-            })
-            .getSheetData(sheetName);
-    } 
-    // 🚀 หากรันบน GitHub Pages ระบบจะเปลี่ยนมาใช้ Fetch API ยิงข้อมูลสดๆ ข้ามระบบจาก Google Sheets ทันที
-    else {
-        fetch(`${APPS_SCRIPT_WEBAPP_URL}?sheet=${encodeURIComponent(sheetName)}`)
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error("Network response was not ok");
-                }
-                return response.json();
-            })
-            .then(response => {
-                // ตรวจสอบโครงสร้างข้อมูล หาก Backend ส่ง Error กลับมา ให้สลับไปใช้ Mock Data
-                if (response && response.error) {
-                    console.error("Backend Apps Script Error:", response.error);
-                    fallbackToMockData(sheetName);
-                    return;
-                }
-                buildResponsiveTable(sheetName, response);
-                showLoader(false);
-            })
-            .catch(err => {
-                console.error("GitHub Cross-Origin Fetch Error (สลับไปใช้ Mock Data อัตโนมัติ):", err);
-                fallbackToMockData(sheetName);
-            });
-    }
-}
+            showLoader(true);
+            
+            const APPS_SCRIPT_WEBAPP_URL = "https://script.google.com/macros/s/AKfycbxYBZzb3g8nZ6X_kyEDflpvr264ECn0QoRXaGIlXT1PRXBRqaaAkABEO6lNB37CJ0JYxg/exec";
+            
+            if (typeof google !== 'undefined' && google.script && google.script.run) {
+                google.script.run
+                    .withSuccessHandler(function(response) {
+                        buildResponsiveTable(sheetName, response);
+                        showLoader(false);
+                    })
+                    .withFailureHandler(function(err) {
+                        console.error("Backend integration runtime failure:", err);
+                        showLoader(false);
+                    })
+                    .getSheetData(sheetName);
+            } 
+            else {
+                fetch(`${APPS_SCRIPT_WEBAPP_URL}?sheet=${encodeURIComponent(sheetName)}`)
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error("Network response was not ok");
+                        }
+                        return response.json();
+                    })
+                    .then(response => {
+                        if (response && response.error) {
+                            console.error("Backend Apps Script Error:", response.error);
+                            fallbackToMockData(sheetName);
+                            return;
+                        }
+                        buildResponsiveTable(sheetName, response);
+                        showLoader(false);
+                    })
+                    .catch(err => {
+                        console.error("GitHub Cross-Origin Fetch Error (สลับไปใช้ Mock Data อัตโนมัติ):", err);
+                        fallbackToMockData(sheetName);
+                    });
+            }
+        }
 
-// ฟังก์ชันเสริมสำหรับดึงข้อมูลสำรอง ในกรณีที่เซิร์ฟเวอร์หลักหรืออินเทอร์เน็ตหน้างานมีปัญหา บอร์ดคะแนนจะไม่ค้างจอดำ
-function fallbackToMockData(sheetName) {
-    const mockPayload = fetchLocalMockDataset(sheetName);
-    buildResponsiveTable(sheetName, mockPayload);
-    showLoader(false);
-}
+        function fallbackToMockData(sheetName) {
+            const mockPayload = fetchLocalMockDataset(sheetName);
+            buildResponsiveTable(sheetName, mockPayload);
+            showLoader(false);
+        }
 
         function sliceColumns(row, startCol, count) {
             if (!row) return [];
@@ -627,8 +608,6 @@ function fallbackToMockData(sheetName) {
             }
         }
 
-        // กลไกควบคุมแอนิเมชันลูปหน่วงเวลาฝั่งละ 10 วินาทีในโหมดความช้าโมเดิร์น
-        // [UPDATED] กลไกควบคุมแอนิเมชันความเร็วใหม่ - กระชับและไวขึ้น
         function initUnderTheadSlowSlideEngine() {
             const scrollBox = document.getElementById('scoreboard-scroll-box');
             const tbodyTarget = document.getElementById('scoreboard-tbody-target');
@@ -636,7 +615,7 @@ function fallbackToMockData(sheetName) {
 
             let currentMode = "";
             let delayCounter = 0;
-            const scrollSpeed = 2; // 🚀 เพิ่มความเร็วการสกรอลล์ขึ้นจาก 1 เป็น 2 (ไวขึ้นเท่าตัว)
+            const scrollSpeed = 2; 
 
             if (isFirstLoadOnScoreboard) {
                 currentMode = "FIRST_LOAD_WAIT"; 
@@ -651,41 +630,34 @@ function fallbackToMockData(sheetName) {
             autoScrollInterval = setInterval(() => {
                 const maxScrollDynamic = scrollBox.scrollHeight - scrollBox.clientHeight;
 
-                // 1. โหมด FIRST_LOAD_WAIT: ค้างแสดงพื้นที่ว่างใต้ Thead นิ่ง ๆ ลดเหลือ 5 วินาที
                 if (currentMode === "FIRST_LOAD_WAIT") {
                     scrollBox.scrollTop = 0;
                     delayCounter++;
-                    if (delayCounter >= 145) { // ⏱ 145 รอบ * 35ms ≈ 5 วินาที
+                    if (delayCounter >= 145) { 
                         tbodyTarget.className = "tbody-initial-slide-down"; 
                         currentMode = "FIRST_LOAD_SLIDING"; 
                         delayCounter = 0;
                     }
                 }
-                
-                // 2. โหมด FIRST_LOAD_SLIDING: รอรับขบวนแถวข้อมูลให้ CSS เลื่อนไหลลงมา (ปรับให้สมดุลที่ 10 วินาที)
                 else if (currentMode === "FIRST_LOAD_SLIDING") {
                     delayCounter++;
-                    if (delayCounter >= 285) { // ⏱ 285 รอบ * 35ms ≈ 10 วินาที
+                    if (delayCounter >= 285) { 
                         tbodyTarget.className = ""; 
                         scrollBox.scrollTop = 0; 
                         currentMode = "TOP_HOLD"; 
                         delayCounter = 0;
                     }
                 }
-
-                // 3. โหมด LOOP_START_HOLD: สแตนด์บายแสดงผลทีมอันดับสุดท้าย ค้างนิ่งไว้ 5 วินาที
                 else if (currentMode === "LOOP_START_HOLD") {
                     if (maxScrollDynamic > 0) {
                         scrollBox.scrollTop = maxScrollDynamic; 
                     }
                     delayCounter++;
-                    if (delayCounter >= 145) { // ⏱ 145 รอบ * 35ms ≈ 5 วินาที
+                    if (delayCounter >= 145) { 
                         currentMode = "SCROLLING_UP"; 
                         delayCounter = 0;
                     }
                 }
-                
-                // 4. โหมด SCROLLING_UP: ใช้แอนิเมชันสคริปต์ค่อย ๆ สกรอลล์ไหลบอร์ดขึ้นบน (ความเร็วติดสปีด x2)
                 else if (currentMode === "SCROLLING_UP") {
                     if (scrollBox.scrollTop > 0) {
                         scrollBox.scrollTop -= scrollSpeed; 
@@ -694,11 +666,9 @@ function fallbackToMockData(sheetName) {
                         delayCounter = 0;
                     }
                 }
-                
-                // 5. โหมด TOP_HOLD: ล็อกหน้าจอทำเนียบแชมป์อันดับ 1-3 ทิ้งไว้ 5 วินาที
                 else if (currentMode === "TOP_HOLD") {
                     delayCounter++;
-                    if (delayCounter >= 145) { // ⏱ 145 รอบ * 35ms ≈ 5 วินาที
+                    if (delayCounter >= 145) { 
                         isFirstLoadOnScoreboard = false; 
                         
                         const maxScrollReset = scrollBox.scrollHeight - scrollBox.clientHeight;
@@ -708,7 +678,7 @@ function fallbackToMockData(sheetName) {
                         delayCounter = 0;
                     }
                 }
-            }, 35); // คงลูปประสิทธิภาพสูง 35ms ไว้เพื่อความลื่นไหลของเฟรม
+            }, 35); 
         }
 
         function showLoader(isActive) {
