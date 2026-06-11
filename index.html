@@ -54,18 +54,17 @@
             display: flex;
             flex-direction: column;
             position: relative;
-            padding-top: 35px; /* เพิ่มพื้นที่ระยะเผื่อจากขอบบนให้แบนเนอร์ดูมีมิติ */
+            padding-top: 35px;
         }
 
-        /* [UPDATED] ปรับแต่งขนาด Banner และคำนวณ Margin จัดวางให้อยู่กึ่งกลางหน้าจอพอดี */
         .banner-container {
             width: 1800px;
             height: 250px;
             overflow: hidden;
-            border-radius: 14px; /* เพิ่มความโค้งมนเล็กน้อยให้เข้ากับดีไซน์กล่องควบคุมด้านล่าง */
+            border-radius: 14px;
             border-bottom: 5px solid var(--secondary-color);
             background-color: var(--footer-bg-color);
-            margin: 0 auto 15px auto; /* จัดกึ่งกลางซ้ายขวา และเว้นระยะห่างจากกล่องควบคุมด้านล่าง */
+            margin: 0 auto 15px auto;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
         }
 
@@ -73,22 +72,22 @@
             width: 100%;
             height: 100%;
             display: block;
-            object-fit: cover; /* ล็อกสัดส่วนรูปภาพไม่ให้บี้หรือเบี้ยวเมื่อขยายความสูงเป็น 250px */
+            object-fit: cover;
         }
 
         /* Content Context Layout */
         .main-content {
             flex: 1;
-            padding: 20px 60px 45px 60px; /* ขยับ padding บนลงเล็กน้อยเพื่อให้เลย์เอาต์สมมาตร */
+            padding: 20px 60px 45px 60px;
         }
 
         /* Modern Dashboard Control Strip */
         .control-card {
-            background: linear-gradient(135deg, #2a61a8 0%, #163fc7 100%); /* ไล่เฉดสีน้ำเงินไปม่วงตามธีมเวที */
+            background: linear-gradient(135deg, #2a61a8 0%, #163fc7 100%);
             border-radius: 16px;
             padding: 24px 35px;
-            border: none; /* ถอดเส้นขอบเดิมออกเพื่อความเนียนตา */
-            box-shadow: 0 10px 25px -5px rgba(25, 18, 53, 0.3); /* เพิ่มเงาฟุ้งโทนม่วงเข้มให้กล่องดูมีมิติลอยขึ้นมา */
+            border: none;
+            box-shadow: 0 10px 25px -5px rgba(25, 18, 53, 0.3);
             margin-bottom: 35px;
         }
 
@@ -96,25 +95,24 @@
             color: #ffffff !important;
         }
         .control-card .section-title i {
-            color: #fef08a !important; /* ปรับไอคอนถ้วยรางวัล/ผู้ใช้ ให้เป็นสีทองสว่าง */
+            color: #fef08a !important;
         }
 
-        /* ปรับแต่งกรอบสถานะการอัปเดตให้อ่านง่ายขึ้นบนพื้นหลังสีเข้ม */
         .control-card .status-indicator {
-            background: rgba(255, 255, 255, 0.15); /* ปรับพื้นหลังให้โปร่งแสงขาว */
+            background: rgba(255, 255, 255, 0.15);
             color: #ffffff !important;
             border: 1px solid rgba(255, 255, 255, 0.25);
-            backdrop-filter: blur(4px); /* เพิ่มเอฟเฟกต์กระจกฝ้าสไตล์โมเดิร์น */
+            backdrop-filter: blur(4px);
         }
 
         .custom-select {
             font-family: 'Prompt', sans-serif;
             font-weight: 600;
-            border: 2px solid rgba(255, 255, 255, 0.7); /* เปลี่ยนเส้นขอบเป็นสีขาวโปร่งแสง */
+            border: 2px solid rgba(255, 255, 255, 0.7);
             border-radius: 12px;
             padding: 12px 20px;
             font-size: 18px;
-            color: #1e293b; /* รักษาตัวหนังสือข้างในเป็นสีเข้ม */
+            color: #1e293b;
             background-color: #fff;
             cursor: pointer;
             width: 320px;
@@ -170,13 +168,12 @@
             box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
             overflow: hidden;
             margin-bottom: 20px;
-            max-height: 880px !important; /* 👈 เพิ่ม !important เพื่อบังคับทับค่าเดิม */
+            max-height: 880px !important;
         }
 
-        /* กรอบมอนิเตอร์ตารางคะแนนปิดสกรอลบาร์ */
         .autoscore-container {
-            max-height: 880px !important; /* 👈 เพิ่ม !important */
-            height: 880px !important;      /* 👈 เพิ่มบรรทัดนี้ เพื่อป้องกันกรณี JavaScript บังคับด้วย height */
+            max-height: 880px !important;
+            height: 880px !important;
             overflow-y: hidden; 
             position: relative;
         }
@@ -184,14 +181,13 @@
         .table-custom {
             margin-bottom: 0;
             width: 100%;
-            max-height: 880px !important; /* 👈 เพิ่ม !important */
+            max-height: 880px !important;
             border-collapse: separate;
         }
 
-        /* Banner headers inside tables */
         .table-custom tr.group-header-row th {
             color: #ffffff;
-            font-size: 26px; /* 👈 ขยายขนาดฟอนต์หัวกลุ่ม (Group A / B) */
+            font-size: 26px;
             font-weight: 700;
             text-align: center;
             padding: 16px;
@@ -202,7 +198,6 @@
         .bg-group-a { background-color: var(--group-a-color) !important; }
         .bg-group-b { background-color: var(--group-b-color) !important; }
 
-        /* ตรึงหัวตาราง Thead ไว้นิ่งสนิท และให้อยู่เหนือเลเยอร์ tbody เสมอ */
         .table-custom thead {
             position: sticky;
             top: 0;
@@ -213,22 +208,21 @@
             background-color: var(--thead-bg-gray) !important;
             color: #0f172a !important;
             font-weight: 700 !important;
-            font-size: 22px !important;  /* 👈 ขยายฟอนต์หัวคอลัมน์ให้อ่านง่ายขึ้น (เดิม 20px) */
-            padding: 20px 15px; /* 👈 เพิ่ม padding ให้ดูโปร่งเต็มตากระชับฟอนต์ใหม่ */
+            font-size: 22px !important;
+            padding: 20px 15px;
             border-bottom: 2px solid #cbd5e1;
             text-transform: uppercase;
             text-align: center !important; 
         }
 
-        /* จัดพิกัดเลเยอร์ของบอดี้ตารางให้รองรับการเลื่อนไถลผ่าน CSS */
         .table-custom tbody {
             position: relative;
             z-index: 10;
         }
 
         .table-custom tbody td {
-            padding: 20px 18px; /* 👈 เพิ่มความสูง Row เล็กน้อยให้รับกับขนาดฟอนต์ */
-            font-size: 24px;    /* 👈 ขยายฟอนต์เนื้อหาข้อมูลภายในตาราง (เดิม 18px) */
+            padding: 20px 18px;
+            font-size: 21px;
             font-weight: 500; 
             color: #1e293b;
             border-bottom: 1px solid #e2e8f0;
@@ -244,20 +238,17 @@
             background-color: #f1f5f9;
         }
 
-        /* คลาสสเตทสำหรับดันตารางทีมไปซ่อนไว้ใต้หัวข้อ Thead ด้านบนสุด */
         .tbody-initial-hidden {
             transform: translateY(-100%);
             opacity: 0;
         }
 
-        /* แอนิเมชันสไลด์นุ่มนวล Slow Motion 20 วินาทีในรอบแรกสุด */
         .tbody-initial-slide-down {
             transform: translateY(0);
             opacity: 1;
             transition: transform 20s linear, opacity 0.3s ease; 
         }
 
-        /* ล็อกเปอร์เซ็นต์ขนาดความกว้างคอลัมน์ลีดเดอร์บอร์ด */
         .col-w-10 { width: 10% !important; }
         .col-w-20 { width: 20% !important; }
 
@@ -265,11 +256,11 @@
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            width: 42px;  /* 👈 ขยายขนาดวงกลมตัวเลขลำดับ (เดิม 34px) */
-            height: 42px; /* 👈 ขยายขนาดวงกลมตัวเลขลำดับ (เดิม 34px) */
+            width: 42px;
+            height: 42px;
             border-radius: 50%;
             font-weight: 700;
-            font-size: 18px; /* 👈 ขยายขนาดฟอนต์ตัวเลขลำดับ (เดิม 15px) */
+            font-size: 18px;
         }
         .rank-1 { background-color: #fef08a; color: #a16207; border: 1px solid #fde047; }
         .rank-2 { background-color: #e2e8f0; color: #475569; border: 1px solid #cbd5e1; }
@@ -281,7 +272,6 @@
             display: none;
         }
 
-        /* Footer ประจำตรรกะแมตช์สีภาพพื้นหลังเวที */
         footer {
             background-color: var(--footer-bg-color);
             color: #cbd5e1;
@@ -303,7 +293,6 @@
             color: #ffffff;
         }
 
-        /* ตัวลอยแจ้งสถาปัตยกรรมเวอร์ชันแอปพลิเคชัน */
         .web-architecture-version {
             position: absolute;
             right: 60px;
@@ -363,7 +352,7 @@
         </div>
 
         <div class="web-architecture-version">
-            Web Architecture: v1.2.1 (Enhanced Font Size & Center Banner)
+            Web Architecture: v1.3.0 (B-A Flipped Grid Layout Enabled)
         </div>
 
         <footer>
@@ -518,7 +507,7 @@
                     initUnderTheadSlowSlideEngine();
                 }, 50);
 
-            // ------------------ กรณีหน้า GROUP, ROUND 1, ROUND 2 ------------------
+            // ------------------ กรณีหน้า GROUP, ROUND 1, ROUND 2 (ปรับสลับเป็น B - A) ------------------
             } else {
                 let colConfig = { aStart: 0, aCount: 3, bStart: 4, bCount: 3 }; 
 
@@ -556,31 +545,7 @@
 
                 let gridHtml = `<div class="grid-split-view">`;
 
-                // ------------------ RENDER ตารางย่อยฝั่ง GROUP A ------------------
-                gridHtml += `
-                    <div class="table-responsive-custom">
-                        <table class="table table-custom">
-                            <thead>
-                                <tr class="group-header-row"><th colspan="${fieldsA.length}" class="bg-group-a">GROUP A</th></tr>
-                                <tr class="field-label-row">`;
-                fieldsA.forEach(f => gridHtml += `<th>${f}</th>`);
-                gridHtml += `</tr></thead><tbody>`;
-                
-                if(groupA_Rows.length === 0) {
-                    gridHtml += `<tr><td colspan="${fieldsA.length}" class="text-center py-4 text-muted">ไม่มีข้อมูลกลุ่ม A</td></tr>`;
-                } else {
-                    groupA_Rows.forEach(row => {
-                        gridHtml += `<tr>`;
-                        row.forEach((cell, idx) => {
-                            let centerClass = (idx === 0 || idx === 1) ? 'class="text-center"' : '';
-                            gridHtml += `<td ${centerClass}>${cell !== null ? cell : ''}</td>`;
-                        });
-                        gridHtml += `</tr>`;
-                    });
-                }
-                gridHtml += `</tbody></table></div>`;
-
-                // ------------------ RENDER ตารางย่อยฝั่ง GROUP B ------------------
+                // 🔄 [สลับตำแหน่ง] นำตารางย่อยฝั่ง GROUP B ขึ้นแสดงผลฝั่งซ้ายก่อน
                 gridHtml += `
                     <div class="table-responsive-custom">
                         <table class="table table-custom">
@@ -594,6 +559,30 @@
                     gridHtml += `<tr><td colspan="${fieldsB.length}" class="text-center py-4 text-muted">ไม่มีข้อมูลกลุ่ม B</td></tr>`;
                 } else {
                     groupB_Rows.forEach(row => {
+                        gridHtml += `<tr>`;
+                        row.forEach((cell, idx) => {
+                            let centerClass = (idx === 0 || idx === 1) ? 'class="text-center"' : '';
+                            gridHtml += `<td ${centerClass}>${cell !== null ? cell : ''}</td>`;
+                        });
+                        gridHtml += `</tr>`;
+                    });
+                }
+                gridHtml += `</tbody></table></div>`;
+
+                // 🔄 [สลับตำแหน่ง] นำตารางย่อยฝั่ง GROUP A ย้ายไปแสดงผลฝั่งขวาแทน
+                gridHtml += `
+                    <div class="table-responsive-custom">
+                        <table class="table table-custom">
+                            <thead>
+                                <tr class="group-header-row"><th colspan="${fieldsA.length}" class="bg-group-a">GROUP A</th></tr>
+                                <tr class="field-label-row">`;
+                fieldsA.forEach(f => gridHtml += `<th>${f}</th>`);
+                gridHtml += `</tr></thead><tbody>`;
+                
+                if(groupA_Rows.length === 0) {
+                    gridHtml += `<tr><td colspan="${fieldsA.length}" class="text-center py-4 text-muted">ไม่มีข้อมูลกลุ่ม A</td></tr>`;
+                } else {
+                    groupA_Rows.forEach(row => {
                         gridHtml += `<tr>`;
                         row.forEach((cell, idx) => {
                             let centerClass = (idx === 0 || idx === 1) ? 'class="text-center"' : '';
